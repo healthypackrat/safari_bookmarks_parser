@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+require "safari_bookmarks_parser"
