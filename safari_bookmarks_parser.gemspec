@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Parse Safari Bookmarks on macOS'
   spec.homepage      = 'https://github.com/healthypackrat/safari_bookmarks_parser'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.5.8')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.2')
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = spec.homepage
