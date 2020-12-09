@@ -1,2 +1,11 @@
 AllCops:
   NewCops: enable
+
+Layout/SpaceInsideBlockBraces:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

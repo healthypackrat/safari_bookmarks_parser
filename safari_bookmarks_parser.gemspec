@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
+  spec.requirements << 'plutil'
 
   spec.add_runtime_dependency 'plist', '~> 3.5'
 end
