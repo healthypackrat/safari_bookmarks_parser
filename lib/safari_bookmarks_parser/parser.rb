@@ -3,6 +3,8 @@
 require 'English'
 require 'tempfile'
 
+require 'plist'
+
 module SafariBookmarksParser
   def self.parse(binary_plist_path)
     Parser.parse(binary_plist_path)

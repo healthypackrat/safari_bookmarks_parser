@@ -2,3 +2,11 @@
 # frozen_string_literal: true
 
 require 'safari_bookmarks_parser'
+
+begin
+  runner = SafariBookmarksParser::Runner.new(ARGV)
+  runner.run
+rescue SafariBookmarksParser::Error => e
+  warn e.message
+  exit 1
+end
