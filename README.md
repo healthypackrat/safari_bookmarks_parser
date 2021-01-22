@@ -2,6 +2,10 @@
 
 This gem provides a command to dump `~/Library/Safari/Bookmarks.plist` as JSON/YAML.
 
+## Prerequisites
+
+In "System Preferences" -> "Security & Privacy" -> "Privacy" -> "Full Disk Access", check "Terminal".
+
 ## Installation
 
 ```
