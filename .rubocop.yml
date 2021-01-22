@@ -1,5 +1,9 @@
 AllCops:
   NewCops: enable
+  SuggestExtensions: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
 
 Layout/SpaceInsideBlockBraces:
   Enabled: false
