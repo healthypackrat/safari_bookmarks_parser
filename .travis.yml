@@ -8,3 +8,4 @@ rvm:
 before_install: gem install bundler -v 2.2.3
 script: bundle exec rake
 os: osx
+osx_image: xcode12.2
