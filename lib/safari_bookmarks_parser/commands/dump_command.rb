@@ -7,10 +7,11 @@ require 'yaml'
 module SafariBookmarksParser
   module Commands
     class DumpCommand
-      attr_reader :plist_path, :output_format, :output_style, :output_parts
+      attr_reader :plist_path, :output_path, :output_format, :output_style, :output_parts
 
       def initialize(argv)
         @plist_path = File.expand_path('~/Library/Safari/Bookmarks.plist')
+        @output_path = nil
         @output_format = :json
         @output_style = :tree
         @output_parts = :all
@@ -27,8 +28,12 @@ module SafariBookmarksParser
         result = result_for_output_parts(plist_parser)
         result = result_for_output_style(result)
 
-        output_result(result)
+        text = format_result(result)
+
+        output_text(text)
       end
+
+      private
 
       def result_for_output_parts(plist_parser)
         case @output_parts
@@ -50,22 +55,29 @@ module SafariBookmarksParser
         end
       end
 
-      def output_result(result)
+      def format_result(result)
         case @output_format
         when :json
-          puts JSON.pretty_generate(result)
+          JSON.pretty_generate(result)
         when :yaml
-          puts YAML.dump(result)
+          YAML.dump(result)
         end
       end
 
-      private
+      def output_text(text)
+        if @output_path
+          File.write(@output_path, text)
+        else
+          puts text
+        end
+      end
 
       def parse_options(argv)
         parser = OptionParser.new
 
         parser.banner = "Usage: #{parser.program_name} dump [options] [~/Library/Safari/Bookmarks.plist]"
 
+        on_output_path(parser)
         on_output_format(parser)
 
         on_tree(parser)
@@ -75,6 +87,12 @@ module SafariBookmarksParser
         on_omit_reading_list(parser)
 
         do_parse(parser, argv)
+      end
+
+      def on_output_path(parser)
+        parser.on('-o', '--output-path=PATH', 'Output path (default: output to $stdout)') do |value|
+          @output_path = value
+        end
       end
 
       def on_output_format(parser)

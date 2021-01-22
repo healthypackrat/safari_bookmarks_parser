@@ -12,6 +12,12 @@ RSpec.describe SafariBookmarksParser::Commands::DumpCommand do
       end
     end
 
+    describe '#output_path' do
+      it 'returns nil' do
+        expect(command.output_path).to be_nil
+      end
+    end
+
     describe '#output_format' do
       it 'returns :json' do
         expect(command.output_format).to eq(:json)
@@ -52,6 +58,16 @@ RSpec.describe SafariBookmarksParser::Commands::DumpCommand do
     describe '#run' do
       it 'outputs JSON from given path' do
         expect { command.run }.to output(/"title": /).to_stdout
+      end
+    end
+  end
+
+  context 'when -o option was given with "output.json"' do
+    let(:argv) { %w[-o output.json] }
+
+    describe '#output_path' do
+      it 'returns "output.json"' do
+        expect(command.output_path).to eq('output.json')
       end
     end
   end

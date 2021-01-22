@@ -11,5 +11,8 @@ Layout/SpaceInsideBlockBraces:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/ClassLength:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
