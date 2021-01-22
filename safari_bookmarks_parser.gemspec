@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['healthypackrat']
   spec.email         = ['healthypackrat@gmail.com']
 
-  spec.summary       = 'Parse Safari Bookmarks on macOS'
+  spec.summary       = 'Dump ~/Library/Safari/Bookmarks.plist as JSON/YAML'
   spec.homepage      = 'https://github.com/healthypackrat/safari_bookmarks_parser'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.6.6')
