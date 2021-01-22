@@ -1,7 +1,5 @@
 # safari\_bookmarks\_parser
 
-[![Build Status](https://travis-ci.org/healthypackrat/safari_bookmarks_parser.svg?branch=master)](https://travis-ci.org/healthypackrat/safari_bookmarks_parser)
-
 This gem provides a command to dump `~/Library/Safari/Bookmarks.plist` as JSON/YAML.
 
 ## Prerequisites
