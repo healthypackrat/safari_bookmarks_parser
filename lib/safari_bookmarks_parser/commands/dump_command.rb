@@ -16,8 +16,6 @@ module SafariBookmarksParser
         @output_style = :tree
         @output_parts = :all
 
-        @option_parser = nil
-
         parse_options(argv)
         handle_argv(argv)
       end
