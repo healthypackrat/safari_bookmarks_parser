@@ -52,6 +52,20 @@ Dump other `Bookmarks.plist`:
 $ safari_bookmarks_parser dump /path/to/Bookmarks.plist
 ```
 
+### Dups
+
+Find duplicated bookmarks:
+
+```
+$ safari_bookmarks_parser dups
+```
+
+Find duplicated bookmarks excluding reading list:
+
+```
+$ safari_bookmarks_parser dups -R
+```
+
 ## Development
 
   - Run `bin/rubocop` to check syntax

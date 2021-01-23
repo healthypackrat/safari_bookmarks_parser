@@ -45,6 +45,7 @@ module SafariBookmarksParser
         Available commands are:
 
           - dump
+          - dups
       MESSAGE
     end
 
