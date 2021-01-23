@@ -82,7 +82,7 @@ module SafariBookmarksParser
         on_list(parser)
 
         on_reading_list_only(parser)
-        on_omit_reading_list(parser)
+        on_exclude_reading_list(parser)
 
         do_parse(parser, argv)
       end
@@ -118,8 +118,8 @@ module SafariBookmarksParser
         end
       end
 
-      def on_omit_reading_list(parser)
-        parser.on('-R', 'Omit reading list') do
+      def on_exclude_reading_list(parser)
+        parser.on('-R', 'Exclude reading list') do
           @output_parts = :bookmarks
         end
       end
