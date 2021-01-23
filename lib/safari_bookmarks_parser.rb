@@ -10,6 +10,7 @@ require 'safari_bookmarks_parser/services/find_empty_folders'
 
 require 'safari_bookmarks_parser/runner'
 
+require 'safari_bookmarks_parser/commands/base_command'
 require 'safari_bookmarks_parser/commands/dump_command'
 require 'safari_bookmarks_parser/commands/dups_command'
 require 'safari_bookmarks_parser/commands/empty_command'

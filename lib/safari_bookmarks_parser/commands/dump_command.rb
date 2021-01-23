@@ -1,39 +1,31 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'optparse'
-require 'yaml'
-
 module SafariBookmarksParser
   module Commands
-    class DumpCommand
-      attr_reader :plist_path, :output_path, :output_format, :output_style, :output_parts
+    class DumpCommand < BaseCommand
+      attr_reader :output_style, :output_parts
 
       def initialize(argv)
-        @plist_path = File.expand_path('~/Library/Safari/Bookmarks.plist')
-        @output_path = nil
-        @output_format = :json
         @output_style = :tree
         @output_parts = :all
 
-        parse_options(argv)
-        handle_argv(argv)
+        super
       end
 
       def run
         plist_parser = Parser.parse(@plist_path)
 
-        result = result_for_output_parts(plist_parser)
-        result = result_for_output_style(result)
+        result = select_output_parts(plist_parser)
+        result = select_output_style(result)
 
-        text = format_result(result)
+        text = format_to_text(result)
 
         output_text(text)
       end
 
       private
 
-      def result_for_output_parts(plist_parser)
+      def select_output_parts(plist_parser)
         case @output_parts
         when :all
           plist_parser.root_folder
@@ -44,29 +36,12 @@ module SafariBookmarksParser
         end
       end
 
-      def result_for_output_style(result)
+      def select_output_style(result)
         case @output_style
         when :tree
           result.to_h
         when :list
           result.to_a.map(&:to_h)
-        end
-      end
-
-      def format_result(result)
-        case @output_format
-        when :json
-          JSON.pretty_generate(result)
-        when :yaml
-          YAML.dump(result)
-        end
-      end
-
-      def output_text(text)
-        if @output_path
-          File.write(@output_path, text)
-        else
-          puts text
         end
       end
 
@@ -85,19 +60,6 @@ module SafariBookmarksParser
         on_exclude_reading_list(parser)
 
         do_parse(parser, argv)
-      end
-
-      def on_output_path(parser)
-        parser.on('-o', '--output-path=PATH', 'Output path (default: output to $stdout)') do |value|
-          @output_path = value
-        end
-      end
-
-      def on_output_format(parser)
-        desc = "Output format (default: #{@output_format}; one of json or yaml)"
-        parser.on('-f', '--output-format=FORMAT', %w[json yaml], desc) do |value|
-          @output_format = value.to_sym
-        end
       end
 
       def on_tree(parser)
@@ -122,16 +84,6 @@ module SafariBookmarksParser
         parser.on('-R', 'Exclude reading list') do
           @output_parts = :bookmarks
         end
-      end
-
-      def do_parse(parser, argv)
-        parser.parse!(argv)
-      rescue OptionParser::ParseError => e
-        raise Error, e.message
-      end
-
-      def handle_argv(argv)
-        @plist_path = argv.first if argv.any?
       end
 
       Runner.register_command(:dump, self)
