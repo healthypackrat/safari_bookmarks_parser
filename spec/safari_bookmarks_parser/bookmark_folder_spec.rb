@@ -28,6 +28,7 @@ RSpec.describe SafariBookmarksParser::BookmarkFolder do
   let(:sub_folder) do
     described_class.new(
       title: 'Ruby',
+      folder_names: %w[Development],
       children: [bookmark3]
     )
   end
@@ -35,12 +36,13 @@ RSpec.describe SafariBookmarksParser::BookmarkFolder do
   let(:folder) do
     described_class.new(
       title: 'Development',
+      folder_names: [],
       children: [sub_folder, bookmark1, bookmark2]
     )
   end
 
   let(:empty_folder) do
-    described_class.new(title: 'Empty')
+    described_class.new(title: 'Empty', folder_names: [])
   end
 
   describe '#empty?' do
@@ -78,7 +80,7 @@ RSpec.describe SafariBookmarksParser::BookmarkFolder do
   describe '#to_h' do
     context 'when given an empty folder' do
       it 'returns a hash with an empty children' do
-        expect(empty_folder.to_h).to eq({ 'title' => 'Empty', 'children' => [] })
+        expect(empty_folder.to_h).to eq({ 'title' => 'Empty', 'folder_names' => [], 'children' => [] })
       end
     end
 
@@ -87,9 +89,11 @@ RSpec.describe SafariBookmarksParser::BookmarkFolder do
         expect(folder.to_h).to eq(
           {
             'title' => 'Development',
+            'folder_names' => [],
             'children' => [
               {
                 'title' => 'Ruby',
+                'folder_names' => %w[Development],
                 'children' => [
                   {
                     'url' => 'https://www.ruby-lang.org/en/',

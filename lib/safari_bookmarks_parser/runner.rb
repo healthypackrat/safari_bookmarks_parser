@@ -46,6 +46,7 @@ module SafariBookmarksParser
 
           - dump
           - dups
+          - empty
       MESSAGE
     end
 

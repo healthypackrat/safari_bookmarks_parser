@@ -66,6 +66,14 @@ Find duplicated bookmarks excluding reading list:
 $ safari_bookmarks_parser dups -R
 ```
 
+### Empty
+
+Find empty folder:
+
+```
+$ safari_bookmarks_parser empty
+```
+
 ## Development
 
   - Run `bin/rubocop` to check syntax

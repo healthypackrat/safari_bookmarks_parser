@@ -2,10 +2,11 @@
 
 module SafariBookmarksParser
   class BookmarkFolder
-    attr_reader :title, :children
+    attr_reader :title, :folder_names, :children
 
-    def initialize(title:, children: [])
+    def initialize(title:, folder_names:, children: [])
       @title = title
+      @folder_names = folder_names
       @children = children
     end
 
@@ -20,7 +21,7 @@ module SafariBookmarksParser
     end
 
     def to_h
-      { 'title' => title, 'children' => children.map(&:to_h) }
+      { 'title' => title, 'folder_names' => folder_names, 'children' => children.map(&:to_h) }
     end
 
     def to_json(options)

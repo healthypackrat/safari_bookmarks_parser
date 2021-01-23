@@ -65,7 +65,7 @@ module SafariBookmarksParser
         traverse(child, folder_names + [title])
       end.compact
 
-      BookmarkFolder.new(title: title, children: children)
+      BookmarkFolder.new(title: title, folder_names: folder_names, children: children)
     end
 
     def accept_leaf(node, folder_names)
