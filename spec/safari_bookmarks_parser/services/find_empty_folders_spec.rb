@@ -3,15 +3,15 @@
 RSpec.describe SafariBookmarksParser::Services::FindEmptyFolders do
   let(:empty_folder1) do
     SafariBookmarksParser::BookmarkFolder.new(
-      title: 'Empty 1',
-      folder_names: ['Root', 'Non-Empty 1'],
+      title: 'Rails',
+      folder_names: %w[Root Ruby],
       children: []
     )
   end
 
   let(:empty_folder2) do
     SafariBookmarksParser::BookmarkFolder.new(
-      title: 'Empty 2',
+      title: 'JavaScript',
       folder_names: %w[Root],
       children: []
     )
@@ -27,7 +27,7 @@ RSpec.describe SafariBookmarksParser::Services::FindEmptyFolders do
 
   let(:non_empty_folder1) do
     SafariBookmarksParser::BookmarkFolder.new(
-      title: 'Non-Empty 1',
+      title: 'Ruby',
       folder_names: %w[Root],
       children: [bookmark1, empty_folder1]
     )
