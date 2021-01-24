@@ -22,7 +22,7 @@ Dump `Bookmarks.plist`:
 $ safari_bookmarks_parser dump
 ```
 
-Dump `Bookmarks.plist` to `Bookmarks.json':
+Dump `Bookmarks.plist` to `Bookmarks.json`:
 
 ```
 $ safari_bookmarks_parser dump -o Bookmarks.json
