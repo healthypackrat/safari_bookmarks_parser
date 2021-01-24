@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    safari_bookmarks_parser (0.1.1)
+    safari_bookmarks_parser (0.2.0)
       plist (~> 3.5)
 
 GEM
