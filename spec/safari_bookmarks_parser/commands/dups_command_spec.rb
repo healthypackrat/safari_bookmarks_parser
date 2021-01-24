@@ -1,28 +1,14 @@
 # frozen_string_literal: true
 
+require 'tmpdir'
+
 RSpec.describe SafariBookmarksParser::Commands::DupsCommand do
   let(:command) { described_class.new(argv) }
 
   context 'when no options and arguments were given' do
     let(:argv) { [] }
 
-    describe '#plist_path' do
-      it 'returns "~/Library/Safari/Bookmarks.plist"' do
-        expect(command.plist_path).to eq(File.expand_path('~/Library/Safari/Bookmarks.plist'))
-      end
-    end
-
-    describe '#output_path' do
-      it 'returns nil' do
-        expect(command.output_path).to be_nil
-      end
-    end
-
-    describe '#output_format' do
-      it 'returns :json' do
-        expect(command.output_format).to eq(:json)
-      end
-    end
+    include_examples 'default options'
 
     describe '#exclude_reading_list' do
       it 'returns false' do
@@ -31,33 +17,33 @@ RSpec.describe SafariBookmarksParser::Commands::DupsCommand do
     end
   end
 
-  context 'when -o option was given with "output.json"' do
-    let(:argv) { %w[-o output.json] }
+  context 'when an argument was given' do
+    let(:plist_path) { 'spec/fixtures/dups/Bookmarks.plist' }
 
-    it 'returns "output.json"' do
-      expect(command.output_path).to eq('output.json')
+    describe '#plist_path' do
+      let(:argv) { [plist_path] }
+
+      it 'returns given plist path' do
+        expect(command.plist_path).to eq(plist_path)
+      end
     end
-  end
 
-  context 'when -f option was given with "json"' do
-    let(:argv) { %w[-f json] }
+    describe '#run' do
+      let(:output_path) { File.join(Dir.tmpdir, 'Bookmarks.json') }
+      let(:argv) { ['-o', output_path, plist_path] }
 
-    describe '#output_format' do
-      it 'returns :json' do
-        expect(command.output_format).to eq(:json)
+      before do
+        command.run
+      end
+
+      it 'outputs 2 duplicated bookmark groups' do
+        groups = JSON.parse(File.read(output_path))
+        expect(groups.size).to eq(2)
       end
     end
   end
 
-  context 'when -f option was given with "yaml"' do
-    let(:argv) { %w[-f yaml] }
-
-    describe '#output_format' do
-      it 'returns :yaml' do
-        expect(command.output_format).to eq(:yaml)
-      end
-    end
-  end
+  include_context 'common options'
 
   context 'when -R option was given' do
     let(:argv) { %w[-R] }
