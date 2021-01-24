@@ -80,6 +80,8 @@ module SafariBookmarksParser
     end
 
     def binary_plist_to_xml_plist(binary_plist_path)
+      binary_plist_readable?(binary_plist_path)
+
       Tempfile.open(['Bookmarks', '.xml']) do |tempfile|
         command = ['plutil', '-convert', 'xml1', '-o', tempfile.path, binary_plist_path]
 
@@ -87,6 +89,17 @@ module SafariBookmarksParser
 
         tempfile.read
       end
+    end
+
+    def binary_plist_readable?(binary_plist_path)
+      return if File.readable?(binary_plist_path)
+
+      message = <<~MESSAGE
+        Couldn't read #{binary_plist_path}
+        In "System Preferences" -> "Security & Privacy" -> "Privacy" -> "Full Disk Access", check "Terminal".
+      MESSAGE
+
+      raise Error, message
     end
   end
 end
