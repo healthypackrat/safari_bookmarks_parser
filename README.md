@@ -22,6 +22,12 @@ Dump `Bookmarks.plist`:
 $ safari_bookmarks_parser dump
 ```
 
+Dump `Bookmarks.plist` to `Bookmarks.json':
+
+```
+$ safari_bookmarks_parser dump -o Bookmarks.json
+```
+
 Dump `Bookmarks.plist` as list:
 
 ```
@@ -68,7 +74,7 @@ $ safari_bookmarks_parser dups -R
 
 ### Empty
 
-Find empty folder:
+Find empty folders:
 
 ```
 $ safari_bookmarks_parser empty
